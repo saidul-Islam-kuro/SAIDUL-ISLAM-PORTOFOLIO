@@ -17,6 +17,8 @@ export const projects = [
     ],
     stack: ['JavaScript', 'Tailwind CSS', 'PDF.js', 'jsPDF', 'MathJax', 'Decap CMS'],
     image: 'https://picsum.photos/seed/eee-vault-cover/900/700',
+    liveUrl: 'https://eee-vault.example.com',
+    githubUrl: 'https://github.com/saidul-islam/eee-vault',
   },
   {
     id: 'JSTU-ediary',
@@ -33,6 +35,8 @@ export const projects = [
     ],
     stack: ['wkhtmltopdf', 'HTML/CSS', 'Noto Sans Bengali'],
     image: 'https://picsum.photos/seed/biology-notes-cover/900/1100',
+    liveUrl: '',
+    githubUrl: 'https://github.com/saidul-islam/jstu-ediary',
   },
   {
     id: 'vc-presentation',
@@ -49,6 +53,8 @@ export const projects = [
     ],
     stack: ['pptxgenjs', 'OOXML'],
     image: 'https://picsum.photos/seed/vc-deck-cover/900/650',
+    liveUrl: '',
+    githubUrl: '',
   },
   {
     id: 'portfolio-site',
@@ -65,6 +71,8 @@ export const projects = [
     ],
     stack: ['React', 'Framer Motion', 'CSS Modules', 'Vite'],
     image: 'https://picsum.photos/seed/portfolio-cover/900/750',
+    liveUrl: 'https://saidulislam.dev',
+    githubUrl: 'https://github.com/saidul-islam/portfolio',
   },
   {
     id: 'eee-vault-mobile',
@@ -81,5 +89,7 @@ export const projects = [
     ],
     stack: ['React Native (planned)', 'Service Workers'],
     image: 'https://picsum.photos/seed/eee-mobile-cover/900/900',
+    liveUrl: '',
+    githubUrl: '',
   },
 ];
