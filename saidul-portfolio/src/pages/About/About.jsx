@@ -5,6 +5,7 @@ import SectionHeading from '../../components/SectionHeading/SectionHeading.jsx';
 import TimelineItem from '../../components/TimelineItem/TimelineItem.jsx';
 import { timeline } from '../../data/timeline';
 import { skillGroups, achievements, societies } from '../../data/skills';
+import profilePhoto from '../../assets/images/saidul-islam-profile.jpeg';
 import styles from './About.module.css';
 
 export default function About() {
@@ -32,8 +33,8 @@ export default function About() {
           </FadeInSection>
           <FadeInSection delay={0.15} className={styles.introPortrait}>
             <img
-              src="https://placehold.co/640x760/562F00/FFF8E4?text=Saidul+Islam"
-              alt="Placeholder portrait of Saidul Islam"
+              src={profilePhoto}
+              alt="Saidul Islam"
               className={styles.portraitImage}
             />
           </FadeInSection>
