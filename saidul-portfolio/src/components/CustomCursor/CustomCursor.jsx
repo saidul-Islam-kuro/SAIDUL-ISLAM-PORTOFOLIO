@@ -29,7 +29,11 @@ export default function CustomCursor() {
     const handleMove = (e) => {
       pos.current.x = e.clientX;
       pos.current.y = e.clientY;
-    };
+        if (dotRef.current) {
+          dotRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+        }
+        if (!raf.current) raf.current = requestAnimationFrame(tick);
+      };
 
     const handleDown = () => ringRef.current?.classList.add(styles.ringActive);
     const handleUp = () => ringRef.current?.classList.remove(styles.ringActive);
@@ -37,12 +41,16 @@ export default function CustomCursor() {
     // Event delegation: any interactive element gets a "hover" state on
     // the cursor without attaching a listener to every single link/button.
     const handleOver = (e) => {
-      if (e.target.closest('a, button, [data-cursor-hover]')) {
+      if (e.target instanceof Element && e.target.closest('a, button, [data-cursor-hover]')) {
         ringRef.current?.classList.add(styles.ringHover);
       }
     };
     const handleOut = (e) => {
-      if (e.target.closest('a, button, [data-cursor-hover]')) {
+      if (
+        e.target instanceof Element &&
+        e.target.closest('a, button, [data-cursor-hover]') &&
+        !(e.relatedTarget instanceof Element && e.relatedTarget.closest('a, button, [data-cursor-hover]'))
+      ) {
         ringRef.current?.classList.remove(styles.ringHover);
       }
     };
@@ -54,19 +62,16 @@ export default function CustomCursor() {
     document.addEventListener('mouseout', handleOut);
 
     const tick = () => {
-      // Dot: 1:1 with the real pointer.
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${pos.current.x}px, ${pos.current.y}px, 0)`;
-      }
-      // Ring: eases toward the pointer for a soft trailing feel.
+      raf.current = null;
       ring.current.x += (pos.current.x - ring.current.x) * 0.18;
       ring.current.y += (pos.current.y - ring.current.y) * 0.18;
       if (ringRef.current) {
         ringRef.current.style.transform = `translate3d(${ring.current.x}px, ${ring.current.y}px, 0)`;
       }
-      raf.current = requestAnimationFrame(tick);
+      if (Math.abs(pos.current.x - ring.current.x) > 0.5 || Math.abs(pos.current.y - ring.current.y) > 0.5) {
+        raf.current = requestAnimationFrame(tick);
+      }
     };
-    raf.current = requestAnimationFrame(tick);
 
     return () => {
       document.body.classList.remove('custom-cursor-active');

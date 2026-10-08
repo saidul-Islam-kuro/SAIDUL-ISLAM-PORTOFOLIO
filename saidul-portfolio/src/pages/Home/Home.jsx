@@ -223,10 +223,35 @@ function HeroLavaLamp() {
     let lastFrame = 0;
     let accent = '#ff9644';
     let accentSoft = '#ffce99';
+    let isInView = false;
+    const bubbleTextures = [];
+
+    const createBubbleTexture = (color) => {
+      const texture = document.createElement('canvas');
+      const textureContext = texture.getContext('2d');
+      if (!textureContext) return texture;
+      texture.width = 256;
+      texture.height = 256;
+      const gradient = textureContext.createRadialGradient(128, 128, 10, 128, 128, 128);
+      gradient.addColorStop(0, color);
+      gradient.addColorStop(0.72, color);
+      gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      textureContext.fillStyle = gradient;
+      textureContext.fillRect(0, 0, 256, 256);
+      return texture;
+    };
+
+    const scheduleDraw = () => {
+      if (!prefersReducedMotion && isInView && !frameId) {
+        frameId = window.requestAnimationFrame(draw);
+      }
+    };
 
     const draw = (timestamp) => {
-      if (!prefersReducedMotion && timestamp - lastFrame < 32) {
-        frameId = window.requestAnimationFrame(draw);
+      frameId = null;
+      if (!isInView && !prefersReducedMotion) return;
+      if (!prefersReducedMotion && timestamp - lastFrame < 50) {
+        scheduleDraw();
         return;
       }
       lastFrame = timestamp;
@@ -264,46 +289,56 @@ function HeroLavaLamp() {
         let y = bubble.y * height;
         const stretchX = bubble.stretchX || 1;
         const stretchY = bubble.stretchY || 1;
-        const color = index % 2 === 0 ? accent : accentSoft;
-
-        context.save();
-        context.translate(x, y);
-        context.scale(stretchX, stretchY);
         context.globalAlpha = 0.21;
-        const gradient = context.createRadialGradient(0, 0, radius * 0.08, 0, 0, radius);
-        gradient.addColorStop(0, color);
-        gradient.addColorStop(0.72, color);
-        gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-        context.fillStyle = gradient;
-        context.beginPath();
-        context.arc(0, 0, radius, 0, Math.PI * 2);
-        context.fill();
-        context.restore();
+        context.drawImage(
+          bubbleTextures[index % bubbleTextures.length],
+          x - radius * stretchX,
+          y - radius * stretchY,
+          radius * stretchX * 2,
+          radius * stretchY * 2,
+        );
       });
 
-      if (!prefersReducedMotion) frameId = window.requestAnimationFrame(draw);
+      context.globalAlpha = 1;
+      scheduleDraw();
     };
 
     const resize = () => {
       const bounds = canvas.getBoundingClientRect();
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
       width = bounds.width;
       height = bounds.height;
+      const pixelRatio = width < 700 ? 0.7 : 1;
       canvas.width = Math.round(width * pixelRatio);
       canvas.height = Math.round(height * pixelRatio);
       context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
       const styles = window.getComputedStyle(canvas);
       accent = styles.getPropertyValue('--accent').trim() || accent;
       accentSoft = styles.getPropertyValue('--accent-soft').trim() || accentSoft;
-      draw(performance.now());
+      bubbleTextures.length = 0;
+      bubbleTextures.push(createBubbleTexture(accent), createBubbleTexture(accentSoft));
+      if (prefersReducedMotion) draw(performance.now());
+      else scheduleDraw();
     };
 
     const observer = new ResizeObserver(resize);
     observer.observe(canvas);
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      isInView = entry.isIntersecting;
+      if (isInView) scheduleDraw();
+      else if (frameId) {
+        window.cancelAnimationFrame(frameId);
+        frameId = null;
+      }
+    });
+    visibilityObserver.observe(canvas);
+    const themeObserver = new MutationObserver(resize);
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     resize();
 
     return () => {
       observer.disconnect();
+      visibilityObserver.disconnect();
+      themeObserver.disconnect();
       if (frameId) window.cancelAnimationFrame(frameId);
     };
   }, [prefersReducedMotion]);
