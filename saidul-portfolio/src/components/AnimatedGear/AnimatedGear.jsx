@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styles from './AnimatedGear.module.css';
 
 export default function AnimatedGear({ className = '', reverse = false, teeth = 16 }) {
+  const gearRef = useRef(null);
   const points = Array.from({ length: teeth * 4 }, (_, index) => {
     const toothStep = Math.PI * 2 / teeth;
     const pointInTooth = index % 4;
@@ -10,8 +11,20 @@ export default function AnimatedGear({ className = '', reverse = false, teeth = 
     return `${50 + Math.cos(angle) * radius},${50 + Math.sin(angle) * radius}`;
   });
 
+  useEffect(() => {
+    const gear = gearRef.current;
+    if (!gear) return undefined;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      gear.classList.toggle(styles.visible, entry.isIntersecting);
+    });
+    observer.observe(gear);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <svg
+      ref={gearRef}
       viewBox="0 0 100 100"
       className={`${styles.gear} ${reverse ? styles.reverse : ''} ${className}`}
       aria-hidden="true"

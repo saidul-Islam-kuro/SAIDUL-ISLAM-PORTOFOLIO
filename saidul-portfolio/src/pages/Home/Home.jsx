@@ -220,10 +220,12 @@ function HeroLavaLamp() {
     let width = 0;
     let height = 0;
     let frameId;
+    let timerId;
     let lastFrame = 0;
     let accent = '#ff9644';
     let accentSoft = '#ffce99';
     let isInView = false;
+    let isPageVisible = document.visibilityState === 'visible';
     const bubbleTextures = [];
 
     const createBubbleTexture = (color) => {
@@ -242,18 +244,17 @@ function HeroLavaLamp() {
     };
 
     const scheduleDraw = () => {
-      if (!prefersReducedMotion && isInView && !frameId) {
-        frameId = window.requestAnimationFrame(draw);
+      if (!prefersReducedMotion && isInView && isPageVisible && !frameId && !timerId) {
+        timerId = window.setTimeout(() => {
+          timerId = null;
+          frameId = window.requestAnimationFrame(draw);
+        }, 33);
       }
     };
 
     const draw = (timestamp) => {
       frameId = null;
-      if (!isInView && !prefersReducedMotion) return;
-      if (!prefersReducedMotion && timestamp - lastFrame < 50) {
-        scheduleDraw();
-        return;
-      }
+      if ((!isInView || !isPageVisible) && !prefersReducedMotion) return;
       lastFrame = timestamp;
       context.clearRect(0, 0, width, height);
 
@@ -307,7 +308,7 @@ function HeroLavaLamp() {
       const bounds = canvas.getBoundingClientRect();
       width = bounds.width;
       height = bounds.height;
-      const pixelRatio = width < 700 ? 0.7 : 1;
+      const pixelRatio = width < 700 ? 0.5 : 0.65;
       canvas.width = Math.round(width * pixelRatio);
       canvas.height = Math.round(height * pixelRatio);
       context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
@@ -329,17 +330,34 @@ function HeroLavaLamp() {
         window.cancelAnimationFrame(frameId);
         frameId = null;
       }
+      if (!isInView && timerId) {
+        window.clearTimeout(timerId);
+        timerId = null;
+      }
     });
     visibilityObserver.observe(canvas);
     const themeObserver = new MutationObserver(resize);
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    const handleVisibilityChange = () => {
+      isPageVisible = document.visibilityState === 'visible';
+      if (isPageVisible) scheduleDraw();
+      else {
+        if (frameId) window.cancelAnimationFrame(frameId);
+        if (timerId) window.clearTimeout(timerId);
+        frameId = null;
+        timerId = null;
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
     resize();
 
     return () => {
       observer.disconnect();
       visibilityObserver.disconnect();
       themeObserver.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       if (frameId) window.cancelAnimationFrame(frameId);
+      if (timerId) window.clearTimeout(timerId);
     };
   }, [prefersReducedMotion]);
 

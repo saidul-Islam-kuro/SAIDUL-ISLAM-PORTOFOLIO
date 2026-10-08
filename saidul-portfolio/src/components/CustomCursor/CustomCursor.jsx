@@ -26,14 +26,26 @@ export default function CustomCursor() {
 
     document.body.classList.add('custom-cursor-active');
 
+    const tick = () => {
+      raf.current = null;
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${pos.current.x}px, ${pos.current.y}px, 0)`;
+      }
+      ring.current.x += (pos.current.x - ring.current.x) * 0.24;
+      ring.current.y += (pos.current.y - ring.current.y) * 0.24;
+      if (ringRef.current) {
+        ringRef.current.style.transform = `translate3d(${ring.current.x}px, ${ring.current.y}px, 0)`;
+      }
+      if (Math.abs(pos.current.x - ring.current.x) > 0.5 || Math.abs(pos.current.y - ring.current.y) > 0.5) {
+        raf.current = requestAnimationFrame(tick);
+      }
+    };
+
     const handleMove = (e) => {
       pos.current.x = e.clientX;
       pos.current.y = e.clientY;
-        if (dotRef.current) {
-          dotRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-        }
-        if (!raf.current) raf.current = requestAnimationFrame(tick);
-      };
+      if (!raf.current) raf.current = requestAnimationFrame(tick);
+    };
 
     const handleDown = () => ringRef.current?.classList.add(styles.ringActive);
     const handleUp = () => ringRef.current?.classList.remove(styles.ringActive);
@@ -60,18 +72,6 @@ export default function CustomCursor() {
     window.addEventListener('mouseup', handleUp);
     document.addEventListener('mouseover', handleOver);
     document.addEventListener('mouseout', handleOut);
-
-    const tick = () => {
-      raf.current = null;
-      ring.current.x += (pos.current.x - ring.current.x) * 0.18;
-      ring.current.y += (pos.current.y - ring.current.y) * 0.18;
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(${ring.current.x}px, ${ring.current.y}px, 0)`;
-      }
-      if (Math.abs(pos.current.x - ring.current.x) > 0.5 || Math.abs(pos.current.y - ring.current.y) > 0.5) {
-        raf.current = requestAnimationFrame(tick);
-      }
-    };
 
     return () => {
       document.body.classList.remove('custom-cursor-active');

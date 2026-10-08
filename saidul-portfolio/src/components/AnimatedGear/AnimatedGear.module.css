@@ -2,13 +2,17 @@
   color: var(--accent-strong);
   transform-box: fill-box;
   transform-origin: center;
-  animation: rotateGear 56s linear infinite;
-  will-change: transform;
+  animation: rotateGear 48s linear infinite;
+  animation-play-state: paused;
+}
+
+.visible {
+  animation-play-state: running;
 }
 
 .reverse {
   animation-direction: reverse;
-  animation-duration: 68s;
+  animation-duration: 58s;
 }
 
 .shape {
