@@ -224,6 +224,245 @@
   font-size: clamp(1.25rem, 2.3vw, 1.6rem);
 }
 
+.gameScene {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: clamp(112px, 18vw, 150px);
+  margin: 0 0 1.25rem;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background:
+    radial-gradient(ellipse at 50% 100%, rgba(255, 150, 68, 0.2), transparent 64%),
+    linear-gradient(180deg, var(--bg-body), var(--bg-soft));
+}
+
+.gameScene svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.controllerShadow {
+  fill: var(--border-color);
+}
+
+.controller {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: controllerFloat 3s ease-in-out infinite;
+}
+
+.controllerBody {
+  fill: var(--color-peach);
+  stroke: var(--color-deep-brown);
+  stroke-width: 3;
+}
+
+[data-theme='dark'] .controllerBody {
+  fill: #6b4423;
+  stroke: #ffce99;
+}
+
+.controllerPanel {
+  fill: var(--bg-soft);
+  opacity: 0.9;
+}
+
+.dpad rect {
+  fill: var(--color-deep-brown);
+}
+
+[data-theme='dark'] .dpad rect {
+  fill: #ffce99;
+}
+
+.stickBase {
+  fill: var(--color-orange);
+  stroke: var(--color-deep-brown);
+  stroke-width: 2;
+}
+
+.stickTop {
+  fill: var(--color-cream-100);
+  stroke: var(--color-deep-brown);
+  stroke-width: 1.5;
+  animation: stickMove 1.8s ease-in-out infinite alternate;
+}
+
+.buttonY,
+.buttonX,
+.buttonB,
+.buttonA {
+  stroke: var(--color-deep-brown);
+  stroke-width: 1.5;
+}
+
+.buttonY { fill: var(--color-orange); }
+.buttonX { fill: var(--accent-strong); }
+.buttonB { fill: var(--color-peach); }
+.buttonA { fill: var(--color-deep-brown); }
+
+[data-theme='dark'] .buttonY,
+[data-theme='dark'] .buttonX,
+[data-theme='dark'] .buttonB,
+[data-theme='dark'] .buttonA {
+  stroke: #2a1600;
+}
+
+.buttonA {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: buttonPress 2.2s ease-in-out infinite;
+}
+
+.menuButton {
+  fill: none;
+  stroke: var(--text-secondary);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.controllerPulse {
+  fill: none;
+  stroke: var(--accent-strong);
+  stroke-width: 2;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulseButton 2.2s ease-out infinite;
+}
+
+.pressCue {
+  fill: none;
+  stroke: var(--accent-strong);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: cueNudge 1.2s ease-in-out infinite alternate;
+}
+
+.fantasyScene {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: clamp(112px, 18vw, 150px);
+  margin: 0 0 1.25rem;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background:
+    radial-gradient(ellipse at 50% 55%, rgba(255, 150, 68, 0.2), transparent 48%),
+    linear-gradient(180deg, var(--bg-body), var(--bg-soft));
+}
+
+.fantasyScene svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.bookShadow {
+  fill: var(--border-color);
+}
+
+.bookBackCover {
+  fill: var(--accent-strong);
+  stroke: var(--color-deep-brown);
+  stroke-width: 2;
+}
+
+.bookLeftPage,
+.bookRightPage,
+.turningPage {
+  fill: var(--color-cream-100);
+  stroke: var(--color-deep-brown);
+  stroke-width: 1.5;
+}
+
+[data-theme='dark'] .bookLeftPage,
+[data-theme='dark'] .bookRightPage,
+[data-theme='dark'] .turningPage {
+  fill: #f3dfbd;
+}
+
+.bookSpine {
+  stroke: var(--color-deep-brown);
+  stroke-width: 3;
+}
+
+.bookTextLines {
+  fill: none;
+  stroke: var(--text-muted);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.bookTitle {
+  fill: none;
+  stroke: var(--accent-strong);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.bookmark {
+  fill: var(--color-orange);
+  transform-box: fill-box;
+  transform-origin: center top;
+  animation: bookmarkSway 2.4s ease-in-out infinite;
+}
+
+.turningPage {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: pageTurn 3.6s ease-in-out infinite;
+}
+
+.turningPageEdge {
+  fill: none;
+  stroke: var(--accent-strong);
+  stroke-width: 2;
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: pageTurn 3.6s ease-in-out infinite;
+}
+
+@keyframes pageTurn {
+  0%, 12% { transform: perspective(500px) rotateY(0deg); }
+  45%, 58% { transform: perspective(500px) rotateY(-145deg); }
+  88%, 100% { transform: perspective(500px) rotateY(0deg); }
+}
+
+@keyframes bookmarkSway {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(7deg); }
+}
+
+@keyframes controllerFloat {
+  0%, 100% { transform: translateY(2px) rotate(-1deg); }
+  50% { transform: translateY(-2px) rotate(1deg); }
+}
+
+@keyframes stickMove {
+  to { transform: translate(2px, -2px); }
+}
+
+@keyframes buttonPress {
+  0%, 35%, 100% { transform: scale(1); }
+  42%, 49% { transform: scale(0.72); }
+  56% { transform: scale(1); }
+}
+
+@keyframes pulseButton {
+  38% { opacity: 0.7; transform: scale(0.7); }
+  70%, 100% { opacity: 0; transform: scale(1.45); }
+}
+
+@keyframes cueNudge {
+  to { transform: translateX(3px); }
+}
+
 .hobbyCard p {
   position: relative;
   z-index: 1;
@@ -252,6 +491,19 @@
 
 @media (max-width: 720px) {
   .hobbyGrid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .controller,
+  .stickTop,
+  .buttonA,
+  .controllerPulse,
+  .pressCue,
+  .bookmark,
+  .turningPage,
+  .turningPageEdge {
+    animation: none;
+  }
 }
 
 /* ---------------------------------------------------------------------- */
