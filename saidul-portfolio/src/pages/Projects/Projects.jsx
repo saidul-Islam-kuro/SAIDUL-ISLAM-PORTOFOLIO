@@ -44,6 +44,8 @@ export default function Projects() {
         <SectionHeading
           title="Projects"
           subtitle="Past, current and planned work — the department tools I've built, and the ones I'm building next."
+          gearVariant="heavy"
+          gears
         />
         <div className={styles.filters} role="tablist" aria-label="Filter projects">
           {FILTERS.map((f) => (

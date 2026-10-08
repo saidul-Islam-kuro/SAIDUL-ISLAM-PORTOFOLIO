@@ -1,0 +1,40 @@
+.gear {
+  color: var(--accent-strong);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rotateGear 56s linear infinite;
+  will-change: transform;
+}
+
+.reverse {
+  animation-direction: reverse;
+  animation-duration: 68s;
+}
+
+.shape {
+  fill: currentColor;
+}
+
+.ring,
+.spokes {
+  fill: none;
+  stroke: var(--bg-body);
+  stroke-width: 2.5;
+  opacity: 0.85;
+}
+
+.hub {
+  fill: currentColor;
+  stroke: var(--bg-body);
+  stroke-width: 2;
+}
+
+@keyframes rotateGear {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gear {
+    animation: none;
+  }
+}

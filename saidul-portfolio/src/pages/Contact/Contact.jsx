@@ -30,6 +30,8 @@ export default function Contact() {
         <SectionHeading
           title="Let's talk"
           subtitle="Questions about EEE Vault, collaboration ideas, or just want to say hello — send a message below."
+          gearVariant="fine"
+          gears
         />
       </header>
 

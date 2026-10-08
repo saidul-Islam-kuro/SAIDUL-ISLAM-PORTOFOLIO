@@ -12,5 +12,5 @@ export const socialLinks = [
   { label: 'GitHub', href: 'https://github.com/', icon: 'github' },
   { label: 'LinkedIn', href: 'https://linkedin.com/', icon: 'linkedin' },
   { label: 'Facebook', href: 'https://facebook.com/', icon: 'facebook' },
-  { label: 'Email', href: 'mailto:hello@saidulislam.dev', icon: 'mail' },
+  { label: 'Email', href: 'mailto:saidulkuro@gmail.com', icon: 'mail' },
 ];

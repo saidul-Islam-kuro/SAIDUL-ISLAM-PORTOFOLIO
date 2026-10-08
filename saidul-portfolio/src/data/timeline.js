@@ -46,12 +46,17 @@ export const timeline = [
   },
   {
     year: 'October 2026',
-    title: 'Official Website for JSTU Robotics Club',
-    place: 'JSTU Robotics Club',
+    title: 'Competitive Intelligence OS',
+    place: 'Self-initiated Project',
     description:
-      'Built a responsive website for the robotics club to recruit members and showcase their projects, events, and member profiles.',
+      'Started developing a software suite for competitive intelligence and market research, focusing on web scraping, sentiment analysis, and data visualization.',
   },
-  
+  {year: 'October 2026',
+    title: 'Treasurer, IEEE EMBS JSTU Student Branch',
+    place: 'IEEE EMBS JSTU Student Branch',
+    description:
+      'Founding member and Treasurer of the IEEE EMBS JSTU Student Branch, managing branch finances and organizing fundraising events.',
+  },
   {
     year: '2026',
     title: 'Now',

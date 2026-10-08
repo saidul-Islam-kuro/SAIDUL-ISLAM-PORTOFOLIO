@@ -40,20 +40,15 @@ export const societies = [
   },
   {
     name: 'JSTU Robotics Club',
-    role: 'Founding Member',
+    role: 'Active Member',
     period: '2026 — Present',
     description: 'Designed and built a responsive website to showcase the club projects, events, and member profiles.',
   },
   {
-    name: 'JSTU Debate Society',
-    role: 'General Member',
-    period: '2022 — 2023',
-    description: 'Took part in inter-department debate sessions, sharpening structured argument and public speaking.',
+    name: 'IEEE EMBS JSTU Student Branch',
+    role: 'Treasurer',
+    period: '2026 — Present',
+    description: 'Managed the branch finances and organized fundraising events.',
   },
-  {
-    name: 'Cultural & Tech Fest Organizing Committee',
-    role: 'Volunteer, Web & Design Team',
-    period: '2024',
-    description: 'Helped design and maintain the event\u2019s registration microsite for the university\u2019s annual tech fest.',
-  },
+ 
 ];

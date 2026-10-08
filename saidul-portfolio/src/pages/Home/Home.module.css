@@ -10,6 +10,7 @@
   min-height: 92vh;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 7rem clamp(1.5rem, 6vw, 5rem) 4rem;
   background: linear-gradient(165deg, var(--bg-body) 0%, var(--bg-body) 55%, var(--color-cream-200) 100%);
   overflow: hidden;
@@ -19,49 +20,118 @@
   background: linear-gradient(165deg, var(--bg-body) 0%, var(--bg-body) 55%, #241505 100%);
 }
 
-.blobFar,
-.blobNear {
+.lavaLamp {
+  position: absolute;
+  inset: 0;
   z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.86;
+  filter: blur(30px) contrast(1.28) saturate(1.12);
 }
 
-.blobShapeFar {
+.gearLayer {
   position: absolute;
-  top: -10%;
-  right: -8%;
-  width: 46vw;
-  height: 46vw;
-  max-width: 620px;
-  max-height: 620px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, var(--color-peach) 0%, rgba(255, 206, 153, 0) 72%);
-  opacity: 0.8;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
 }
 
-.blobShapeNear {
+.heroInner {
+  position: relative;
+  z-index: 2;
+  width: min(1200px, 100%);
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(260px, 0.75fr);
+  align-items: center;
+  gap: clamp(2rem, 4vw, 4rem);
+}
+
+.gearTop,
+.gearBottom {
   position: absolute;
-  bottom: -18%;
-  left: -6%;
-  width: 30vw;
-  height: 30vw;
-  max-width: 420px;
-  max-height: 420px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 60% 40%, var(--color-orange) 0%, rgba(255, 150, 68, 0) 70%);
-  opacity: 0.45;
+  width: clamp(260px, 35vw, 490px);
+  height: auto;
+  opacity: 0.24;
+  filter: drop-shadow(0 12px 30px var(--shadow-color));
+}
+
+.gearTop {
+  top: -20%;
+  right: -11%;
+  opacity: 0.26;
+}
+
+.gearBottom {
+  bottom: -26%;
+  left: -12%;
+  width: clamp(300px, 40vw, 560px);
+  opacity: 0.23;
 }
 
 .heroContent {
   position: relative;
-  z-index: 1;
   max-width: 720px;
+}
+
+.heroVisual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1200px;
+}
+
+.photoFrame {
+  position: relative;
+  width: min(100%, 430px);
+  aspect-ratio: 4 / 5;
+  padding: 1rem;
+  border-radius: 2rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.84), rgba(255, 206, 153, 0.5));
+  border: 1px solid rgba(86, 47, 0, 0.08);
+  box-shadow: 0 28px 60px rgba(86, 47, 0, 0.12);
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.photoFrame::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 2.1rem;
+  background: linear-gradient(135deg, rgba(255, 150, 68, 0.6), rgba(255, 206, 153, 0.15), rgba(255, 255, 255, 0.2));
+  z-index: 0;
+  opacity: 0.8;
+  filter: blur(16px);
+  animation: glowShift 6s ease-in-out infinite alternate;
+}
+
+[data-theme='dark'] .photoFrame {
+  background: linear-gradient(135deg, rgba(45, 30, 18, 0.92), rgba(79, 48, 24, 0.78));
+  border-color: rgba(255, 206, 153, 0.16);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.28);
+}
+
+.profilePhoto {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1.5rem;
+  box-shadow: 0 18px 40px rgba(41, 21, 0, 0.18);
 }
 
 .heroKicker {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 1.15rem;
+  font-size: clamp(1.6rem, 2.7vw, 2rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
   color: var(--accent-strong);
-  margin-bottom: 1.1rem;
+  margin-bottom: 1.25rem;
 }
 
 .heroTitle {
@@ -93,7 +163,8 @@
   font-weight: 700;
   font-size: 0.98rem;
   transition: transform var(--transition-base), box-shadow var(--transition-base),
-    background var(--transition-base), color var(--transition-base);
+    background var(--transition-base), color var(--transition-base), border-color var(--transition-base);
+  will-change: transform;
 }
 
 .heroPrimary {
@@ -127,7 +198,7 @@
   height: 42px;
   border: 2px solid var(--border-strong);
   border-radius: var(--radius-pill);
-  z-index: 1;
+  z-index: 2;
 }
 
 .scrollCue span {
@@ -146,9 +217,40 @@
   100% { transform: translateY(0); opacity: 0; }
 }
 
+@keyframes glowShift {
+  0% { transform: scale(0.98) translate3d(-6px, 2px, 0); opacity: 0.55; }
+  100% { transform: scale(1.04) translate3d(6px, -3px, 0); opacity: 0.9; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .scrollCue span {
     animation: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .heroInner {
+    grid-template-columns: 1fr;
+  }
+
+  .heroContent {
+    max-width: 620px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .heroLead {
+    max-width: 100%;
+  }
+
+  .heroActions {
+    justify-content: center;
+  }
+
+  .heroVisual {
+    max-width: 420px;
+    width: 100%;
+    margin: 0 auto;
   }
 }
 
@@ -288,21 +390,22 @@
   border-radius: var(--radius-lg);
   padding: clamp(2.5rem, 6vw, 4rem);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .ctaCard h2 {
   color: var(--text-inverse);
   font-size: clamp(1.6rem, 3vw, 2.2rem);
   max-width: 640px;
-  margin-inline: auto 1rem;
-  margin-bottom: 1rem;
+  margin: 0 auto 1rem;
 }
 
 .ctaCard p {
   color: rgba(255, 253, 241, 0.75);
   max-width: 520px;
-  margin-inline: auto;
-  margin-bottom: 2rem;
+  margin: 0 auto 2rem;
 }
 
 .ctaButton {

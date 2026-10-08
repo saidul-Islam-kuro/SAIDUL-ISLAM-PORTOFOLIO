@@ -111,4 +111,10 @@
   .sidebar {
     display: none;
   }
+
+  .sidebar.open {
+    display: flex;
+    width: min(var(--sidebar-width), calc(100vw - 3.5rem));
+    box-shadow: 18px 0 48px var(--shadow-color);
+  }
 }

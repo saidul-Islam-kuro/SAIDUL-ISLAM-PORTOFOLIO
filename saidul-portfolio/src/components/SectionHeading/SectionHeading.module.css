@@ -3,9 +3,73 @@
   margin-bottom: clamp(2.25rem, 5vw, 3.5rem);
 }
 
+.geared {
+  position: relative;
+  isolation: isolate;
+}
+
+.gearPair {
+  position: absolute;
+  z-index: 0;
+  top: -2rem;
+  right: -0.5rem;
+  width: 148px;
+  height: 136px;
+  opacity: 0.23;
+  pointer-events: none;
+}
+
+.title,
+.subtitle {
+  position: relative;
+  z-index: 1;
+}
+
+.primaryGear {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 114px;
+  height: 114px;
+}
+
+.secondaryGear {
+  position: absolute;
+  right: 80px;
+  bottom: 0;
+  width: 64px;
+  height: 64px;
+}
+
+.variantfine .gearPair {
+  top: -1.5rem;
+  right: 0.5rem;
+  transform: rotate(-8deg);
+}
+
+.variantcompact .gearPair {
+  top: -2.5rem;
+  right: -1.25rem;
+  transform: scale(0.88);
+}
+
+.variantheavy .gearPair {
+  top: -1rem;
+  right: -1.5rem;
+  transform: rotate(7deg);
+}
+
 .center {
   margin-inline: auto;
   text-align: center;
+}
+
+@media (max-width: 620px) {
+  .gearPair {
+    right: -0.5rem;
+    transform: scale(0.72);
+    transform-origin: top right;
+  }
 }
 
 .title {

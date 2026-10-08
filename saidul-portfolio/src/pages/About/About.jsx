@@ -48,6 +48,8 @@ export default function About() {
         <SectionHeading
           title="Skills & tools"
           subtitle="What I reach for day to day, split between software and the electrical engineering fundamentals underneath it."
+          gearVariant="heavy"
+          gears
         />
         <div className={styles.skillsGrid}>
           {skillGroups.map((group, i) => (
@@ -76,6 +78,46 @@ export default function About() {
             <TimelineItem key={item.title} item={item} index={i} />
           ))}
         </ul>
+      </section>
+
+      {/* ---------------------------------------------------------------
+          HOBBIES
+      --------------------------------------------------------------- */}
+      <section className={`container ${styles.section}`}>
+        <SectionHeading
+          title="Away from the circuits"
+          subtitle="When I'm not building something or studying, I make time for great worlds and stories."
+        />
+        <div className={styles.hobbyGrid}>
+          <FadeInSection className={styles.hobbyCard}>
+            <span className={styles.hobbyEyebrow}>PLAYER ONE</span>
+            <h3>Games with worlds worth getting lost in</h3>
+            <p>
+              Gaming is one of my favorite ways to unwind. I&apos;ve explored a huge range of AAA
+              and popular games, from cinematic adventures to sprawling open worlds — always up
+              for a memorable story, a clever mechanic, or one more side quest.
+            </p>
+            <ul className={styles.hobbyTags} aria-label="Gaming interests">
+              <li>AAA adventures</li>
+              <li>Open worlds</li>
+              <li>Story-driven games</li>
+            </ul>
+          </FadeInSection>
+          <FadeInSection delay={0.1} className={styles.hobbyCard}>
+            <span className={styles.hobbyEyebrow}>PAGE TURNER</span>
+            <h3>Epic fantasy, one chapter at a time</h3>
+            <p>
+              I also love getting immersed in a good book, especially fantasy with rich worlds,
+              layered characters, and big ideas. Brandon Sanderson&apos;s <em>The Stormlight Archive</em>
+              {' '}and <em>Mistborn</em> are among my favorites.
+            </p>
+            <ul className={styles.hobbyTags} aria-label="Favorite book series">
+              <li>The Stormlight Archive</li>
+              <li>Mistborn</li>
+              <li>Epic fantasy</li>
+            </ul>
+          </FadeInSection>
+        </div>
       </section>
 
       {/* ---------------------------------------------------------------

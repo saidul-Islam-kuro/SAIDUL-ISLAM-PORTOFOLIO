@@ -14,6 +14,8 @@ export default function Gallery() {
         <SectionHeading
           title="Gallery"
           subtitle="Workshops, department events and a few behind-the-scenes moments from building EEE Vault."
+          gearVariant="compact"
+          gears
         />
       </header>
 
