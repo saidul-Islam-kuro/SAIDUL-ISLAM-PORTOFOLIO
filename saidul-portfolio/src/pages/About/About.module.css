@@ -20,6 +20,23 @@
   z-index: 0;
 }
 
+.introGearLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.introGear {
+  position: absolute;
+  top: 2%;
+  right: -14%;
+  width: clamp(360px, 48vw, 660px);
+  height: auto;
+  opacity: 0.19;
+}
+
 .blobShape {
   position: absolute;
   top: -20%;
@@ -35,7 +52,7 @@
 
 .introInner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: grid;
   grid-template-columns: 1.3fr 0.9fr;
   gap: 3rem;
@@ -80,6 +97,13 @@
 }
 
 @media (max-width: 860px) {
+  .introGear {
+    top: 4%;
+    right: -27%;
+    width: clamp(320px, 72vw, 500px);
+    opacity: 0.16;
+  }
+
   .introInner {
     grid-template-columns: 1fr;
   }

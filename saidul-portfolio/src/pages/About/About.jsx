@@ -1,4 +1,5 @@
 import React from 'react';
+import AnimatedGear from '../../components/AnimatedGear/AnimatedGear.jsx';
 import FadeInSection from '../../components/FadeInSection/FadeInSection.jsx';
 import ParallaxLayer from '../../components/ParallaxLayer/ParallaxLayer.jsx';
 import SectionHeading from '../../components/SectionHeading/SectionHeading.jsx';
@@ -18,6 +19,9 @@ export default function About() {
         <ParallaxLayer speed={0.22} className={styles.introBlob}>
           <div className={styles.blobShape} />
         </ParallaxLayer>
+        <div className={styles.introGearLayer} aria-hidden="true">
+          <AnimatedGear className={styles.introGear} teeth={20} />
+        </div>
         <div className={`container ${styles.introInner}`}>
           <FadeInSection className={styles.introText}>
             <p className={styles.kicker}>About me</p>
