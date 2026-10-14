@@ -12,7 +12,7 @@
 .intro {
   position: relative;
   padding-top: clamp(4rem, 8vw, 6rem);
-  padding-bottom: var(--space-section);
+  padding-bottom: clamp(6rem, 10vw, 8rem);
   overflow: hidden;
 }
 
@@ -96,6 +96,62 @@
   box-shadow: 0 30px 60px var(--shadow-color);
 }
 
+.scrollCue {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  transform: translateX(-50%);
+  color: var(--text-muted);
+  transition: color var(--transition-base), transform var(--transition-base);
+}
+
+.scrollCue:hover {
+  color: var(--accent-strong);
+  transform: translate(-50%, -3px);
+}
+
+.scrollCueMouse {
+  display: flex;
+  justify-content: center;
+  width: 22px;
+  height: 34px;
+  border: 2px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+}
+
+.scrollCueMouse span {
+  width: 4px;
+  height: 7px;
+  margin-top: 5px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  animation: aboutCueDrop 1.8s ease-in-out infinite;
+}
+
+.scrollCueLabel {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@keyframes aboutCueDrop {
+  0% { transform: translateY(0); opacity: 1; }
+  70% { transform: translateY(10px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollCueMouse span {
+    animation: none;
+  }
+}
+
 @media (max-width: 860px) {
   .introGear {
     top: 4%;
@@ -112,6 +168,10 @@
   }
   .portraitImage {
     max-width: 240px;
+  }
+
+  .intro {
+    padding-bottom: 6rem;
   }
 }
 

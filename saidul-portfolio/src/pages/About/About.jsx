@@ -45,12 +45,18 @@ export default function About() {
             />
           </FadeInSection>
         </div>
+        <a className={styles.scrollCue} href="#about-skills" aria-label="Scroll to Skills and tools">
+          <span className={styles.scrollCueMouse} aria-hidden="true">
+            <span />
+          </span>
+          <span className={styles.scrollCueLabel}>Scroll to explore</span>
+        </a>
       </section>
 
       {/* ---------------------------------------------------------------
           SKILLS
       --------------------------------------------------------------- */}
-      <section className={`container ${styles.section}`}>
+      <section id="about-skills" className={`container ${styles.section}`}>
         <SectionHeading
           title="Skills & tools"
           subtitle="What I reach for day to day, split between software and the electrical engineering fundamentals underneath it."
