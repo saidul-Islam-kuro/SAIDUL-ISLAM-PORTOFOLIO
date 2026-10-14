@@ -30,7 +30,7 @@ const focusAreas = [
 
 const stats = [
   { value: '06', label: 'JSTU EEE Batch' },
-  { value: '5', label: 'Projects shipped or in progress' },
+  { value: '6', label: 'Projects shipped or in progress' },
   { value: '1', label: 'Commissioned projects' },
 ];
 

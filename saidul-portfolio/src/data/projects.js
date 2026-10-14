@@ -1,5 +1,8 @@
 // Portfolio projects — spans past, current and planned (future) work,
 // so the Projects page can filter across the whole arc honestly rather
+
+import { title } from "framer-motion/m";
+
 // than pretending everything is already finished.
 export const projects = [
   {
@@ -56,7 +59,24 @@ export const projects = [
     liveUrl: '',
     githubUrl: '',
   },
-  {
+  {id: 'Step-Down-Transformer',
+   title: 'Step-Down Transformer',
+    status: 'current',
+    year: '2026',
+    tagline: 'A step-down transformer for voltage regulation and power distribution.',
+    description:
+      'A step-down transformer designed for efficient voltage regulation and power distribution in electrical systems. The project focuses on optimizing the transformer design for minimal energy loss and maximum performance.',
+    highlights: [
+      'Optimized core design for reduced energy loss',
+      'High-efficiency winding techniques for improved performance',
+      'Comprehensive testing and validation of transformer characteristics',
+    ],
+    stack: ['Electrical Engineering', 'Transformer Design', 'Power Systems'],
+    image: 'https://www.allelcoelec.com/upfile/images/71/20250527195427165.png',
+    liveUrl: '',
+    githubUrl: '',
+  },
+   {
     id: 'portfolio-site',
     title: 'This Portfolio',
     status: 'current',
