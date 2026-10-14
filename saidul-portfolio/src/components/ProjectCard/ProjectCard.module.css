@@ -4,9 +4,6 @@
 }
 
 .card {
-  display: block;
-  width: 100%;
-  text-align: left;
   background: var(--bg-elevated);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
@@ -19,6 +16,13 @@
   transform: translateY(-6px);
   box-shadow: 0 22px 40px var(--shadow-color);
   border-color: var(--border-strong);
+}
+
+.cardMain {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
 }
 
 .imageWrap {
@@ -96,4 +100,35 @@
   background: var(--bg-soft);
   color: var(--text-secondary);
   border: 1px solid var(--border-color);
+}
+
+.cardActions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 1.5rem 1.25rem;
+}
+
+.visitSite {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: var(--text-on-accent);
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1;
+  transition: transform var(--transition-base), background var(--transition-base);
+}
+
+.visitSite:hover {
+  transform: translateY(-2px);
+  background: var(--accent-strong);
+}
+
+@media (max-width: 620px) {
+  .cardActions {
+    padding-inline: 1.2rem;
+  }
 }

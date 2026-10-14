@@ -1,5 +1,5 @@
 import React from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import useScrolled from '../../hooks/useScrolled';
 import styles from './BackToTop.module.css';
 
@@ -18,7 +18,7 @@ export default function BackToTop() {
   return (
     <AnimatePresence>
       {visible && (
-        <motion.button
+        <m.button
           type="button"
           className={styles.button}
           onClick={scrollToTop}
@@ -32,7 +32,7 @@ export default function BackToTop() {
             <path d="M12 19V6" />
             <path d="M6 11l6-6 6 6" />
           </svg>
-        </motion.button>
+        </m.button>
       )}
     </AnimatePresence>
   );

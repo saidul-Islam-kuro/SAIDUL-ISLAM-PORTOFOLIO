@@ -13,7 +13,7 @@ export default function Gallery() {
       <header className={`container ${styles.header}`}>
         <SectionHeading
           title="Gallery"
-          subtitle="Workshops, department events and a few behind-the-scenes moments from building EEE Vault."
+          subtitle="Workshops, department events and a few personal snapshots."
           gearVariant="compact"
           gears
         />
@@ -29,7 +29,13 @@ export default function Gallery() {
               aria-label={`Open image: ${image.caption}`}
               data-cursor-hover
             >
-              <img src={image.src} alt={image.caption} loading="lazy" className={styles.image} />
+              <img
+                src={image.src}
+                alt={image.caption}
+                loading="lazy"
+                decoding="async"
+                className={styles.image}
+              />
               <span className={styles.overlay}>
                 <span className={styles.tag}>{image.tag}</span>
                 <span className={styles.caption}>{image.caption}</span>

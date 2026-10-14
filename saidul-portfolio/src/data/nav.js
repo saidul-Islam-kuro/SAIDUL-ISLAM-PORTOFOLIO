@@ -1,5 +1,4 @@
-// Shared navigation model — consumed by both the desktop Sidebar and the
-// mobile drawer (MobileMenu) so the link list only has to be edited once.
+// Shared navigation model consumed by the desktop and mobile navigation.
 export const navLinks = [
   { label: 'Home', path: '/' },
   { label: 'About', path: '/about' },
@@ -9,8 +8,8 @@ export const navLinks = [
 ];
 
 export const socialLinks = [
-  { label: 'GitHub', href: 'https://github.com/', icon: 'github' },
-  { label: 'LinkedIn', href: 'https://linkedin.com/', icon: 'linkedin' },
-  { label: 'Facebook', href: 'https://facebook.com/', icon: 'facebook' },
+  { label: 'GitHub', href: 'https://github.com/saidul-Islam-kuro', icon: 'github' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/saidul-islam-kuro/?isSelfProfile=true', icon: 'linkedin' },
+  { label: 'Facebook', href: 'https://www.facebook.com/saidul.islam.kuro', icon: 'facebook' },
   { label: 'Email', href: 'mailto:saidulkuro@gmail.com', icon: 'mail' },
 ];

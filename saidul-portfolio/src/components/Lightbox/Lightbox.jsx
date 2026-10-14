@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import useLockBodyScroll from '../../hooks/useLockBodyScroll';
 import styles from './Lightbox.module.css';
 
@@ -38,7 +38,7 @@ export default function Lightbox({ images, index, onClose, onNavigate }) {
 
   return (
     <AnimatePresence>
-      <motion.div
+      <m.div
         className={styles.backdrop}
         role="dialog"
         aria-modal="true"
@@ -65,7 +65,7 @@ export default function Lightbox({ images, index, onClose, onNavigate }) {
           &#8249;
         </button>
 
-        <motion.figure
+        <m.figure
           key={current.id}
           className={styles.figure}
           onClick={(e) => e.stopPropagation()}
@@ -79,7 +79,7 @@ export default function Lightbox({ images, index, onClose, onNavigate }) {
             <span className={styles.tag}>{current.tag}</span>
             {current.caption}
           </figcaption>
-        </motion.figure>
+        </m.figure>
 
         <button
           type="button"
@@ -92,7 +92,7 @@ export default function Lightbox({ images, index, onClose, onNavigate }) {
         >
           &#8250;
         </button>
-      </motion.div>
+      </m.div>
     </AnimatePresence>
   );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext.jsx';
 import styles from './ThemeToggle.module.css';
 
@@ -26,7 +26,7 @@ export default function ThemeToggle() {
       <span className={styles.iconMoon} aria-hidden="true">
         ☾
       </span>
-      <motion.span
+      <m.span
         className={styles.knob}
         animate={{ x: isDark ? 22 : 0 }}
         transition={{ type: 'spring', stiffness: 400, damping: 28 }}

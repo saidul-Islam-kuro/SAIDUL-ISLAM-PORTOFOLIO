@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
+import { m, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import styles from './ParallaxLayer.module.css';
 
 /**
@@ -22,9 +22,9 @@ export default function ParallaxLayer({ children, speed = 0.3, className = '' })
 
   return (
     <div ref={ref} className={`${styles.wrapper} ${className}`}>
-      <motion.div style={{ y }} className={styles.inner}>
+      <m.div style={{ y }} className={styles.inner}>
         {children}
-      </motion.div>
+      </m.div>
     </div>
   );
 }

@@ -9,6 +9,14 @@
   flex: 1;
 }
 
+.routeLoading {
+  display: grid;
+  min-height: 40vh;
+  place-items: center;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
 @media (max-width: 960px) {
   .shell {
     margin-left: 0;

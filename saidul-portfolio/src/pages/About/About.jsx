@@ -40,6 +40,8 @@ export default function About() {
               src={profilePhoto}
               alt="Saidul Islam"
               className={styles.portraitImage}
+              loading="lazy"
+              decoding="async"
             />
           </FadeInSection>
         </div>

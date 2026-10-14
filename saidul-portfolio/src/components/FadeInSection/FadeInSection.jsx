@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { m, useReducedMotion } from 'framer-motion';
 
 /**
  * Scroll-triggered fade-in wrapper. Uses Framer Motion's `whileInView`
@@ -20,7 +20,7 @@ export default function FadeInSection({
   amount = 0.2,
 }) {
   const prefersReducedMotion = useReducedMotion();
-  const MotionTag = motion[as] || motion.div;
+  const MotionTag = m[as] || m.div;
 
   const variants = {
     hidden: { opacity: 0, y: prefersReducedMotion ? 0 : y },

@@ -20,8 +20,10 @@ Router and Framer Motion. Honey-orange visual identity (warm white / peach
 
 ## Interactive features
 
-- Left sidebar navigation on desktop; a hamburger + slide-in drawer below
-  the tablet breakpoint (960px).
+- Transparent, fixed navigation that preserves the top-of-page hero on
+  every route, with visible links on desktop and a compact mobile menu.
+- Non-home pages load on demand, and Framer Motion loads only the animation
+  features used by the app.
 - Dark / light mode toggle, persisted in `localStorage` and defaulting to
   the visitor's OS preference on first visit.
 - Scroll-triggered fade-in reveals (`FadeInSection`) and depth-based
@@ -47,6 +49,21 @@ npm run preview    # preview the production build locally
 
 Requires Node 18+.
 
+## Contact form email delivery
+
+The contact form uses the Vercel serverless function in `api/contact.js` and
+Resend to send messages to `saidulkuro@gmail.com`. Before deploying:
+
+1. Verify a sending domain in Resend and create an API key.
+2. Add `RESEND_API_KEY` and `RESEND_FROM_EMAIL` to the Vercel project's
+   Environment Variables. `RESEND_FROM_EMAIL` must use the verified domain,
+   for example `Portfolio <messages@example.com>`.
+3. Redeploy after setting the variables.
+
+For local testing, link the project with the Vercel CLI, configure the same
+environment variables, then run `npx vercel dev`; Vite's `npm run dev` alone
+does not run Vercel API functions.
+
 ## Project structure
 
 ```
@@ -67,11 +84,11 @@ src/
 - **Content** — almost all page copy lives in `src/data/*.js` rather than
   being hard-coded in JSX, so updating a project, a timeline entry or a
   gallery caption doesn't require touching any component code.
-- **Images** — every image currently points at `picsum.photos` (event/
-  gallery photos) or `placehold.co` (the profile portrait) as
-  placeholders. Swap the `src` values in `src/data/projects.js`,
-  `src/data/gallery.js` and `src/pages/About/About.jsx` for real photos
-  before shipping.
+- **Images** — the profile portrait is local; optimized gallery and
+  project-cover WebP files are served from `public/gallery`, with original
+  photos preserved in `gallery/`. The Competitive Intelligence OS and
+  portfolio covers still use external sample images; replace them with
+  local project images before shipping.
 - **Contact form** — `handleSubmit` in `Contact.jsx` currently just shows
   a success state locally. Point it at a form backend (Formspree, a
   serverless function, etc.) to actually receive messages.

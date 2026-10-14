@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 import SectionHeading from '../../components/SectionHeading/SectionHeading.jsx';
 import ProjectCard from '../../components/ProjectCard/ProjectCard.jsx';
 import useLockBodyScroll from '../../hooks/useLockBodyScroll';
@@ -66,20 +66,26 @@ export default function Projects() {
 
       <div className={`container ${styles.masonry}`}>
         {visible.map((project, i) => (
-          <ProjectCard key={project.id} project={project} onOpen={setOpenId} delay={i * 0.05} />
+          <ProjectCard
+            key={project.id}
+            project={project}
+            onOpen={setOpenId}
+            delay={i * 0.05}
+            showVisitSite
+          />
         ))}
       </div>
 
       <AnimatePresence>
         {openProject && (
-          <motion.div
+          <m.div
             className={styles.backdrop}
             onClick={() => setOpenId(null)}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <motion.div
+            <m.div
               className={styles.detailCard}
               onClick={(e) => e.stopPropagation()}
               initial={{ opacity: 0, y: 24, scale: 0.98 }}
@@ -138,8 +144,8 @@ export default function Projects() {
                   </div>
                 )}
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

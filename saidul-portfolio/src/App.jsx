@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import Sidebar from './components/Sidebar/Sidebar.jsx';
-import MobileMenu from './components/MobileMenu/MobileMenu.jsx';
+import NavBar from './components/NavBar/NavBar.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import BackToTop from './components/BackToTop/BackToTop.jsx';
 import CustomCursor from './components/CustomCursor/CustomCursor.jsx';
 import Home from './pages/Home/Home.jsx';
-import About from './pages/About/About.jsx';
-import Projects from './pages/Projects/Projects.jsx';
-import Gallery from './pages/Gallery/Gallery.jsx';
-import Contact from './pages/Contact/Contact.jsx';
 import styles from './App.module.css';
+
+const About = lazy(() => import('./pages/About/About.jsx'));
+const Projects = lazy(() => import('./pages/Projects/Projects.jsx'));
+const Gallery = lazy(() => import('./pages/Gallery/Gallery.jsx'));
+const Contact = lazy(() => import('./pages/Contact/Contact.jsx'));
 
 /** Resets scroll position whenever the route changes, so navigating from
  * the bottom of a long page to a new page doesn't leave the visitor
@@ -24,27 +24,23 @@ function ScrollToTop() {
 }
 
 export default function App() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => setSidebarOpen((open) => !open);
-  const closeSidebar = () => setSidebarOpen(false);
-
   return (
     <>
       <CustomCursor />
       <ScrollToTop />
-      <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
-      <MobileMenu isOpen={sidebarOpen} onToggle={toggleSidebar} onClose={closeSidebar} />
+      <NavBar />
 
       <div className={styles.shell}>
         <main className={styles.main}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
+          <Suspense fallback={<div className={styles.routeLoading} role="status">Loading page…</div>}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/contact" element={<Contact />} />
+            </Routes>
+          </Suspense>
         </main>
         <Footer />
       </div>

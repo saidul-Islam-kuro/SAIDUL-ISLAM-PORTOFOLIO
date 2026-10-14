@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { m, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import AnimatedGear from '../../components/AnimatedGear/AnimatedGear.jsx';
 import FadeInSection from '../../components/FadeInSection/FadeInSection.jsx';
 import ProjectCard from '../../components/ProjectCard/ProjectCard.jsx';
@@ -30,8 +30,8 @@ const focusAreas = [
 
 const stats = [
   { value: '06', label: 'JSTU EEE Batch' },
-  { value: '5+', label: 'Projects shipped or in progress' },
-  { value: '1', label: 'Presentation to the Vice-Chancellor' },
+  { value: '5', label: 'Projects shipped or in progress' },
+  { value: '1', label: 'Commissioned projects' },
 ];
 
 export default function Home() {
@@ -130,27 +130,27 @@ function HomeHero() {
         <AnimatedGear className={styles.gearBottom} reverse />
       </div>
       <div className={styles.heroInner}>
-        <motion.div
+        <m.div
           className={styles.heroContent}
           style={{ y: heroTextY, opacity: heroTextOpacity }}
         >
-          <motion.p
+          <m.p
             className={styles.heroKicker}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             Saidul Islam
-          </motion.p>
-          <motion.h1
+          </m.p>
+          <m.h1
             className={styles.heroTitle}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
             Engineering the future of hardware, software and everything in between.
-          </motion.h1>
-          <motion.p
+          </m.h1>
+          <m.p
             className={styles.heroLead}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -158,8 +158,8 @@ function HomeHero() {
           >
             Studying EEE at Jamalpur Science and Technology University, and building EEE Vault — a study
             companion now used across the department — alongside it.
-          </motion.p>
-          <motion.div
+          </m.p>
+          <m.div
             className={styles.heroActions}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -171,25 +171,31 @@ function HomeHero() {
             <Link to="/about" className={styles.heroSecondary} data-cursor-hover>
               My journey so far
             </Link>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           className={styles.heroVisual}
           initial={{ opacity: 0, scale: 0.94, x: 28 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.18 }}
           whileHover={{ y: -8, scale: 1.02 }}
         >
-          <motion.div
+          <m.div
             className={styles.photoFrame}
             animate={{ y: [0, -10, 0], rotate: [0, 1.2, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
             whileHover={{ rotate: -1.5, y: -12 }}
           >
-            <img src={profilePhoto} alt="Saidul Islam portrait" className={styles.profilePhoto} />
-          </motion.div>
-        </motion.div>
+            <img
+              src={profilePhoto}
+              alt="Saidul Islam portrait"
+              className={styles.profilePhoto}
+              fetchpriority="high"
+              decoding="async"
+            />
+          </m.div>
+        </m.div>
       </div>
 
       <div className={styles.scrollCue} aria-hidden="true">
@@ -220,8 +226,6 @@ function HeroLavaLamp() {
     let width = 0;
     let height = 0;
     let frameId;
-    let timerId;
-    let lastFrame = 0;
     let accent = '#ff9644';
     let accentSoft = '#ffce99';
     let isInView = false;
@@ -244,18 +248,14 @@ function HeroLavaLamp() {
     };
 
     const scheduleDraw = () => {
-      if (!prefersReducedMotion && isInView && isPageVisible && !frameId && !timerId) {
-        timerId = window.setTimeout(() => {
-          timerId = null;
-          frameId = window.requestAnimationFrame(draw);
-        }, 33);
+      if (!prefersReducedMotion && isInView && isPageVisible && !frameId) {
+        frameId = window.requestAnimationFrame(draw);
       }
     };
 
     const draw = (timestamp) => {
       frameId = null;
       if ((!isInView || !isPageVisible) && !prefersReducedMotion) return;
-      lastFrame = timestamp;
       context.clearRect(0, 0, width, height);
 
       bubbles.forEach((bubble, index) => {
@@ -330,10 +330,6 @@ function HeroLavaLamp() {
         window.cancelAnimationFrame(frameId);
         frameId = null;
       }
-      if (!isInView && timerId) {
-        window.clearTimeout(timerId);
-        timerId = null;
-      }
     });
     visibilityObserver.observe(canvas);
     const themeObserver = new MutationObserver(resize);
@@ -343,9 +339,7 @@ function HeroLavaLamp() {
       if (isPageVisible) scheduleDraw();
       else {
         if (frameId) window.cancelAnimationFrame(frameId);
-        if (timerId) window.clearTimeout(timerId);
         frameId = null;
-        timerId = null;
       }
     };
     document.addEventListener('visibilitychange', handleVisibilityChange);
@@ -357,7 +351,6 @@ function HeroLavaLamp() {
       themeObserver.disconnect();
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       if (frameId) window.cancelAnimationFrame(frameId);
-      if (timerId) window.clearTimeout(timerId);
     };
   }, [prefersReducedMotion]);
 
